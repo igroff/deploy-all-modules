@@ -53,7 +53,7 @@ data "archive_file" "lambda_hc_code_archive" {
 }
 
 resource "aws_lambda_function" "function" {
-  function_name    = "ShutdownTaggedInstances-2"
+  function_name    = "ShutdownTaggedInstances"
   runtime          = "python3.8"
   handler          = "handler.lambda_handler"
   role             = aws_iam_role.execution_role.arn
@@ -66,6 +66,7 @@ resource "aws_lambda_function" "function" {
     variables = {
       SHUTDOWN_KEY   = "Shutdown"
       SHUTDOWN_VALUE = "nightly"
+      DRY_RUN        = "true"
     }
   }
 }
